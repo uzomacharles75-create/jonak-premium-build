@@ -6,8 +6,8 @@ import logo from "@/assets/jonak-logo.jpeg";
 const links = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
+  { href: "#video", label: "Showcase" },
   { href: "#projects", label: "Projects" },
-  { href: "#equipment", label: "Operations" },
   { href: "#contact", label: "Contact" },
 ];
 
