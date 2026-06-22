@@ -1,6 +1,9 @@
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Send, MessageCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { useState } from "react";
+
+const phones = ["0913 706 1340", "0705 219 3488", "0817 457 8070"];
+const phoneTel = ["09137061340", "07052193488", "08174578070"];
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -12,21 +15,41 @@ export function Contact() {
           <Reveal>
             <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">Contact</div>
             <h2 className="mt-3 font-display text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
-              Let's build your next landmark.
+              Let's build your next project.
             </h2>
             <p className="mt-5 max-w-md text-white/70 md:text-lg">
-              Tell us about your project. Our team responds to every inquiry
-              within 24 hours.
+              Reach our team directly — by phone, WhatsApp, email, or the form. We respond to every
+              inquiry within 24 hours.
             </p>
 
             <div className="mt-10 space-y-5">
-              <a href="tel:08174578070" className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition-all hover:border-gold/50">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gold-gradient text-gold-foreground"><Phone className="h-5 w-5" /></div>
-                <div>
+              <div className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gold-gradient text-gold-foreground"><Phone className="h-5 w-5" /></div>
                   <div className="text-xs uppercase tracking-widest text-white/50">Phone</div>
-                  <div className="font-display text-lg font-semibold">0817 457 8070</div>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {phones.map((p, i) => (
+                    <a key={p} href={`tel:${phoneTel[i]}`} className="block font-display text-lg font-semibold transition-colors hover:text-gold">
+                      {p}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/2347052193488"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition-all hover:border-[#25D366]/60"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#25D366] text-white"><MessageCircle className="h-5 w-5" /></div>
+                <div>
+                  <div className="text-xs uppercase tracking-widest text-white/50">WhatsApp</div>
+                  <div className="font-display text-lg font-semibold">0705 219 3488</div>
                 </div>
               </a>
+
               <a href="mailto:info@jonakconstruction.com" className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition-all hover:border-gold/50">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gold-gradient text-gold-foreground"><Mail className="h-5 w-5" /></div>
                 <div>
@@ -34,19 +57,20 @@ export function Contact() {
                   <div className="font-display text-lg font-semibold">info@jonakconstruction.com</div>
                 </div>
               </a>
+
               <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gold-gradient text-gold-foreground"><MapPin className="h-5 w-5" /></div>
                 <div>
-                  <div className="text-xs uppercase tracking-widest text-white/50">Headquarters</div>
-                  <div className="font-display text-lg font-semibold">Lagos, Nigeria</div>
+                  <div className="text-xs uppercase tracking-widest text-white/50">Head Office</div>
+                  <div className="font-display text-base font-semibold">KM 36 Lekki-Epe Expressway,<br />Ibeju-Lekki, Lagos, Nigeria</div>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 overflow-hidden rounded-xl border border-white/10">
               <iframe
-                title="JONAK Office Location"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=3.30%2C6.43%2C3.50%2C6.55&amp;layer=mapnik"
+                title="Jonak Construction — KM 36 Lekki-Epe Expressway"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=3.85%2C6.40%2C4.05%2C6.55&amp;layer=mapnik&amp;marker=6.475,3.95"
                 className="h-56 w-full grayscale"
                 loading="lazy"
               />

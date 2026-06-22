@@ -3,19 +3,19 @@ import { Reveal } from "./Reveal";
 
 const items = [
   {
-    q: "JONAK delivered our corporate headquarters ahead of schedule and within budget. Their engineering discipline is second to none.",
+    q: "Jonak delivered our family home ahead of schedule with finishing that exceeded our expectations. Professional from day one.",
     n: "Adebayo O.",
-    r: "Director, Meridian Holdings",
+    r: "Homeowner, Lekki",
   },
   {
-    q: "From procurement to final handover, the team operated with precision. A true infrastructure partner we trust on every contract.",
+    q: "Transparent costing, disciplined site management, and superb workmanship. They are now our default contractor for new builds.",
     n: "Hauwa I.",
-    r: "PM, Federal Roads Authority",
+    r: "Director, Meridian Properties",
   },
   {
-    q: "Their fleet and logistics capabilities allowed us to scale the project across three sites simultaneously. Outstanding execution.",
+    q: "The team handled our renovation with care and skill — the result completely transformed the property. Highly recommended.",
     n: "Chuka E.",
-    r: "CEO, Northstar Industries",
+    r: "Investor, Ibeju-Lekki",
   },
 ];
 
@@ -26,7 +26,7 @@ export function Testimonials() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">Client Testimonials</div>
           <h2 className="mt-3 font-display text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
-            Trusted by serious clients.
+            Trusted by clients across Lagos.
           </h2>
         </Reveal>
 
