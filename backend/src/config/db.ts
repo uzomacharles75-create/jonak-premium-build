@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 
 import { env } from "./env";
 
 let connectionPromise: Promise<typeof mongoose> | null = null;
-let memoryServer: MongoMemoryServer | null = null;
+let memoryServer: { getUri: () => string } | null = null;
 
 async function resolveMongoUri() {
   if (env.MONGODB_URI && env.MONGODB_URI !== "mongodb-memory-server") {
@@ -15,6 +14,7 @@ async function resolveMongoUri() {
     throw new Error("MONGODB_URI is required in production.");
   }
 
+  const { MongoMemoryServer } = await import("mongodb-memory-server");
   if (!memoryServer) {
     memoryServer = await MongoMemoryServer.create({
       instance: {
@@ -31,6 +31,7 @@ export async function connectDatabase() {
     connectionPromise = resolveMongoUri().then((uri) =>
       mongoose.connect(uri, {
         autoIndex: env.NODE_ENV !== "production",
+        serverSelectionTimeoutMS: 15000,
       }),
     );
   }

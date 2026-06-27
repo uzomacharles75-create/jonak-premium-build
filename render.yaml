@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     rootDir: .
-    buildCommand: npm install
+    buildCommand: npm install --omit=dev
     startCommand: npm run api:start
     healthCheckPath: /api/health
     envVars:
@@ -15,8 +15,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        sync: false
-      - key: BACKEND_URL
         sync: false
       - key: SEED_ADMIN_EMAIL
         sync: false

@@ -117,12 +117,17 @@ async function seedAdminIfNeeded() {
 }
 
 async function start() {
-  await connectDatabase();
-  await seedAdminIfNeeded();
+  try {
+    await connectDatabase();
+    await seedAdminIfNeeded();
 
-  app.listen(env.PORT, () => {
-    console.log(`Jonak backend listening on ${backendOrigin} in ${env.NODE_ENV} mode`);
-  });
+    app.listen(env.PORT, "0.0.0.0", () => {
+      console.log(`Jonak backend listening on ${backendOrigin} in ${env.NODE_ENV} mode`);
+    });
+  } catch (error) {
+    console.error("Failed to start Jonak backend:", error);
+    process.exit(1);
+  }
 }
 
 void start();

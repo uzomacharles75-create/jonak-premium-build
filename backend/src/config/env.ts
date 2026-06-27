@@ -20,25 +20,46 @@ const parsedEnv = envSchema.parse(process.env);
 
 export const isProduction = parsedEnv.NODE_ENV === "production";
 
+function normalizeUrl(value: string | undefined) {
+  return value?.trim().replace(/\/$/, "") ?? "";
+}
+
+function resolveBackendUrl(explicitValue: string | undefined) {
+  const explicit = normalizeUrl(explicitValue);
+  if (explicit) {
+    return explicit;
+  }
+
+  const renderUrl = normalizeUrl(process.env.RENDER_EXTERNAL_URL);
+  if (renderUrl) {
+    return renderUrl;
+  }
+
+  return isProduction ? "" : "http://localhost:4000";
+}
+
 export const env = {
   ...parsedEnv,
   MONGODB_URI: parsedEnv.MONGODB_URI?.trim() ?? (isProduction ? "" : "mongodb-memory-server"),
   JWT_SECRET:
     parsedEnv.JWT_SECRET?.trim() ??
     (isProduction ? "" : "dev-local-jwt-secret-change-in-production"),
-  FRONTEND_URL: parsedEnv.FRONTEND_URL?.trim() ?? (isProduction ? "" : "http://localhost:5173"),
-  BACKEND_URL: parsedEnv.BACKEND_URL?.trim() ?? (isProduction ? "" : "http://localhost:4000"),
+  FRONTEND_URL: normalizeUrl(parsedEnv.FRONTEND_URL) || (isProduction ? "" : "http://localhost:5173"),
+  BACKEND_URL: resolveBackendUrl(parsedEnv.BACKEND_URL),
   SEED_ADMIN_EMAIL: parsedEnv.SEED_ADMIN_EMAIL?.trim() ?? "admin@jonakconstruction.com",
   SEED_ADMIN_PASSWORD: parsedEnv.SEED_ADMIN_PASSWORD ?? "Admin123!",
   SEED_ADMIN_NAME: parsedEnv.SEED_ADMIN_NAME?.trim() ?? "Jonak Admin",
 };
 
-if (
-  isProduction &&
-  (!env.MONGODB_URI || !env.JWT_SECRET || !env.FRONTEND_URL || !env.BACKEND_URL)
-) {
+const missingProductionEnv = [
+  !env.MONGODB_URI ? "MONGODB_URI" : null,
+  !env.JWT_SECRET ? "JWT_SECRET" : null,
+  !env.FRONTEND_URL ? "FRONTEND_URL" : null,
+].filter(Boolean);
+
+if (isProduction && missingProductionEnv.length > 0) {
   throw new Error(
-    "MONGODB_URI, JWT_SECRET, FRONTEND_URL, and BACKEND_URL are required in production.",
+    `Missing required production environment variables: ${missingProductionEnv.join(", ")}. BACKEND_URL is optional on Render and is detected automatically.`,
   );
 }
 
