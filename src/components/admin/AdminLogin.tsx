@@ -58,15 +58,9 @@ export function AdminLogin() {
     );
   }
 
-  if (currentUserQuery.error instanceof ApiError && currentUserQuery.error.status !== 401) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-surface text-white">
-        <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white/70">
-          Unable to check admin session right now. Please continue to log in.
-        </div>
-      </div>
-    );
-  }
+  const sessionCheckFailed =
+    currentUserQuery.isError &&
+    !(currentUserQuery.error instanceof ApiError && currentUserQuery.error.status === 401);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(210,170,92,0.15),_transparent_35%),linear-gradient(180deg,_var(--surface),_var(--background))] px-4 py-10 text-white">
@@ -89,6 +83,12 @@ export function AdminLogin() {
                 Sign in to manage products, upload media, and update the public catalogue.
               </p>
             </div>
+
+            {sessionCheckFailed && (
+              <div className="mt-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                Could not verify an existing session. You can still sign in below.
+              </div>
+            )}
 
             <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
               <div>

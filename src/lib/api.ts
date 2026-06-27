@@ -65,11 +65,16 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}) {
     headers.set("Content-Type", "application/json");
   }
 
-  const response = await fetch(buildApiUrl(path), {
-    ...init,
-    headers,
-    credentials: "include",
-  });
+  let response: Response;
+  try {
+    response = await fetch(buildApiUrl(path), {
+      ...init,
+      headers,
+      credentials: "include",
+    });
+  } catch {
+    throw new ApiError(0, "Unable to reach the admin server. Check your connection and try again.");
+  }
 
   if (!response.ok) {
     const errorPayload = await parseError(response);
@@ -85,7 +90,10 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}) {
     return (await response.json()) as T;
   }
 
-  return (await response.text()) as T;
+  throw new ApiError(
+    response.status,
+    "The admin server returned an unexpected response. It may not be connected yet.",
+  );
 }
 
 export async function fetchPublicProducts() {
