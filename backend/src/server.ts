@@ -85,18 +85,16 @@ app.use("/api", apiRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-async function seedLocalAdmin() {
-  if (isProduction) {
-    return;
-  }
-
+async function seedAdminIfNeeded() {
   const email = env.SEED_ADMIN_EMAIL.toLowerCase();
   const existingAdmin = await UserModel.findOne({ email }).lean();
 
   if (existingAdmin) {
-    console.log(
-      `Local admin already exists for ${email}. Use the existing credentials to sign in.`,
-    );
+    if (!isProduction) {
+      console.log(
+        `Admin already exists for ${email}. Use the existing credentials to sign in.`,
+      );
+    }
     return;
   }
 
@@ -110,15 +108,17 @@ async function seedLocalAdmin() {
     isActive: true,
   });
 
-  console.log("Seeded local admin account:");
+  console.log(isProduction ? "Seeded production admin account:" : "Seeded local admin account:");
   console.log(`  Email: ${email}`);
-  console.log(`  Password: ${env.SEED_ADMIN_PASSWORD}`);
+  if (!isProduction) {
+    console.log(`  Password: ${env.SEED_ADMIN_PASSWORD}`);
+  }
   console.log("  Login URL: /admin");
 }
 
 async function start() {
   await connectDatabase();
-  await seedLocalAdmin();
+  await seedAdminIfNeeded();
 
   app.listen(env.PORT, () => {
     console.log(`Jonak backend listening on ${backendOrigin} in ${env.NODE_ENV} mode`);
