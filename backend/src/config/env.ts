@@ -21,7 +21,20 @@ const parsedEnv = envSchema.parse(process.env);
 export const isProduction = parsedEnv.NODE_ENV === "production";
 
 function normalizeUrl(value: string | undefined) {
-  return value?.trim().replace(/\/$/, "") ?? "";
+  const trimmed = value?.trim().replace(/\/$/, "") ?? "";
+  if (!trimmed) {
+    return "";
+  }
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+
+  if (/^(localhost|127\.0\.0\.1|\d{1,3}(?:\.\d{1,3}){3})(?::\d+)?$/i.test(trimmed)) {
+    return `http://${trimmed}`;
+  }
+
+  return `https://${trimmed}`;
 }
 
 function resolveBackendUrl(explicitValue: string | undefined) {
