@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { Reveal } from "./Reveal";
-import video from "@/assets/projects/showcase.mp4.asset.json";
-import poster from "@/assets/projects/p6.jpeg.asset.json";
+import { showcaseMedia } from "@/lib/siteContent";
 
 export function VideoShowcase() {
   const ref = useRef<HTMLVideoElement>(null);
@@ -27,8 +26,7 @@ export function VideoShowcase() {
             See Our Work In Action
           </h2>
           <p className="mt-5 text-white/70 md:text-lg">
-            Explore real construction projects completed by Jonak Construction Limited — from site
-            preparation to the final handover.
+            {showcaseMedia.description}
           </p>
         </Reveal>
 
@@ -37,8 +35,8 @@ export function VideoShowcase() {
             <div className="relative aspect-video w-full">
               <video
                 ref={ref}
-                src={video.url}
-                poster={poster.url}
+                src={showcaseMedia.videoUrl}
+                poster={showcaseMedia.posterUrl}
                 className="h-full w-full object-cover"
                 playsInline
                 preload="metadata"

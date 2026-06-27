@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 import { CheckCircle2 } from "lucide-react";
 
 const stats = [
-  { n: 15, s: "+", l: "Years of Experience" },
+  { n: 5, s: "yr+", l: "Years of Experience" },
   { n: 120, s: "+", l: "Completed Projects" },
   { n: 350, s: "+", l: "Skilled Workforce" },
   { n: 98, s: "%", l: "Client Satisfaction" },
@@ -23,14 +23,15 @@ export function WhyUs() {
       <div className="container-px relative mx-auto max-w-7xl">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">Why JONAK</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">
+              Why JONAK
+            </div>
             <h2 className="mt-3 font-display text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
               The contractor major projects rely on.
             </h2>
             <p className="mt-5 max-w-md text-white/70 md:text-lg">
-              We combine engineering rigor with operational discipline — the
-              foundation for projects that finish on time, on budget, and built
-              to last.
+              We combine engineering rigor with operational discipline — the foundation for projects
+              that finish on time, on budget, and built to last.
             </p>
             <ul className="mt-8 space-y-4">
               {reasons.map((r) => (

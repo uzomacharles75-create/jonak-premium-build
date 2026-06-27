@@ -78,10 +78,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "JONAK Construction Limited" },
-      { name: "description", content: "Premium construction and engineering company delivering landmark projects with precision and integrity." },
+      { title: "Jonak Construction Limited | Premium Construction in Lagos" },
+      {
+        name: "description",
+        content:
+          "Premium construction and fabrication company delivering gates, doors, staircases, civil works, renovations, and residential projects in Lagos and Port Harcourt, Nigeria.",
+      },
       { name: "author", content: "JONAK Construction Limited" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Jonak Construction Limited" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

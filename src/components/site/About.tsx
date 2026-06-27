@@ -1,6 +1,6 @@
 import { ShieldCheck, Award, HardHat, MapPin, Phone, FileCheck } from "lucide-react";
-import about from "@/assets/projects/p10.jpeg.asset.json";
 import { Reveal } from "./Reveal";
+import { aboutMedia } from "@/lib/siteContent";
 
 export function About() {
   return (
@@ -9,12 +9,17 @@ export function About() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <div className="relative">
-              <div className="overflow-hidden rounded-2xl shadow-elegant">
-                <img src={about.url} alt="Completed residential project by Jonak Construction" loading="lazy" className="h-full w-full object-cover" />
+              <div className="overflow-hidden rounded-2xl bg-surface p-6 shadow-elegant">
+                <img
+                  src={aboutMedia.url}
+                  alt={aboutMedia.alt}
+                  loading="lazy"
+                  className="h-auto w-full object-contain"
+                />
               </div>
               <div className="absolute -bottom-8 -right-4 hidden rounded-2xl bg-surface p-6 text-white shadow-elegant md:block md:-right-8 md:p-8">
-                <div className="font-display text-4xl font-bold text-gold">15+</div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-white/60">Years of Excellence</div>
+                <div className="font-display text-4xl font-bold text-gold">5+</div>
+                <div className="mt-1 text-xs uppercase tracking-widest text-white/60">Years Experience</div>
               </div>
             </div>
           </Reveal>
@@ -27,9 +32,10 @@ export function About() {
               </h2>
               <p className="mt-6 text-base text-muted-foreground md:text-lg">
                 Jonak Construction Limited is a Lagos-based construction company delivering quality
-                workmanship across residential, commercial, and structural projects. With over a
-                decade of hands-on experience, we combine engineering discipline with a relentless
-                focus on client satisfaction — building work that lasts and relationships that endure.
+                workmanship across residential, commercial, and structural projects, including
+                custom gates, security doors, staircases, canopies, and civil works. With 5+ years
+                of hands-on experience, we combine engineering discipline with a relentless focus on
+                client satisfaction — building work that lasts and relationships that endure.
               </p>
 
               <div className="mt-8 grid gap-3 rounded-2xl border border-border bg-card p-6 text-sm shadow-card-soft">
@@ -39,7 +45,11 @@ export function About() {
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 text-gold" />
-                  <span><span className="text-muted-foreground">Address:</span> <span className="font-semibold">KM 36 Lekki-Epe Expressway, Ibeju-Lekki, Lagos, Nigeria</span></span>
+                  <span>
+                    <span className="text-muted-foreground">Locations:</span>{" "}
+                    <span className="font-semibold">KM 36 Lekki-Epe Expressway, Ibeju-Lekki, Lagos, Nigeria</span>
+                    <span className="mt-1 block font-semibold">Also available in Port Harcourt, Rivers State, Nigeria</span>
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-gold" />

@@ -1,12 +1,12 @@
 import { Phone, MessageCircle } from "lucide-react";
-import hero from "@/assets/projects/p6.jpeg.asset.json";
+import { getQuoteLink, heroMedia } from "@/lib/siteContent";
 
 export function Hero() {
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-surface text-white">
       <img
-        src={hero.url}
-        alt="Premium security gate fabricated and installed by Jonak Construction Limited"
+        src={heroMedia.url}
+        alt={heroMedia.alt}
         className="absolute inset-0 h-full w-full object-cover"
         width={1920}
         height={1080}
@@ -29,8 +29,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-base text-white/75 md:text-lg">
-            A trusted Lagos-based construction company delivering residential, commercial, and
-            structural projects with uncompromising craftsmanship and reliability.
+            A Lagos-based construction and fabrication company delivering custom gates, security
+            doors, staircases, canopies, civil works, and structural projects with uncompromising
+            craftsmanship.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -41,18 +42,18 @@ export function Hero() {
               <Phone className="h-4 w-4" /> Call Now
             </a>
             <a
-              href="https://wa.me/2347052193488"
+              href={getQuoteLink("my construction project")}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-semibold text-white backdrop-blur transition-colors hover:border-gold hover:text-gold"
             >
-              <MessageCircle className="h-4 w-4" /> WhatsApp Us
+              <MessageCircle className="h-4 w-4" /> Request a Quote
             </a>
           </div>
 
           <div className="mt-14 grid max-w-xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
             {[
-              { v: "15+", l: "Years Experience" },
+              { v: "5+", l: "Years Experience" },
               { v: "120+", l: "Projects Delivered" },
               { v: "100%", l: "Client Commitment" },
             ].map((s) => (

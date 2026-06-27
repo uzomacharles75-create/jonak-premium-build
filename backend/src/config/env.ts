@@ -1,0 +1,76 @@
+import "dotenv/config";
+
+import { z } from "zod";
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  PORT: z.coerce.number().int().positive().default(4000),
+  MONGODB_URI: z.string().optional(),
+  JWT_SECRET: z.string().optional(),
+  FRONTEND_URL: z.string().optional(),
+  BACKEND_URL: z.string().optional(),
+  AUTH_COOKIE_NAME: z.string().default("jonak_admin_session"),
+  ADMIN_TOKEN_TTL: z.string().default("7d"),
+  SEED_ADMIN_EMAIL: z.string().optional(),
+  SEED_ADMIN_PASSWORD: z.string().optional(),
+  SEED_ADMIN_NAME: z.string().optional(),
+});
+
+const parsedEnv = envSchema.parse(process.env);
+
+export const isProduction = parsedEnv.NODE_ENV === "production";
+
+export const env = {
+  ...parsedEnv,
+  MONGODB_URI: parsedEnv.MONGODB_URI?.trim() ?? (isProduction ? "" : "mongodb-memory-server"),
+  JWT_SECRET:
+    parsedEnv.JWT_SECRET?.trim() ??
+    (isProduction ? "" : "dev-local-jwt-secret-change-in-production"),
+  FRONTEND_URL: parsedEnv.FRONTEND_URL?.trim() ?? (isProduction ? "" : "http://localhost:5173"),
+  BACKEND_URL: parsedEnv.BACKEND_URL?.trim() ?? (isProduction ? "" : "http://localhost:4000"),
+  SEED_ADMIN_EMAIL: parsedEnv.SEED_ADMIN_EMAIL?.trim() ?? "admin@jonakconstruction.com",
+  SEED_ADMIN_PASSWORD: parsedEnv.SEED_ADMIN_PASSWORD ?? "Admin123!",
+  SEED_ADMIN_NAME: parsedEnv.SEED_ADMIN_NAME?.trim() ?? "Jonak Admin",
+};
+
+if (
+  isProduction &&
+  (!env.MONGODB_URI || !env.JWT_SECRET || !env.FRONTEND_URL || !env.BACKEND_URL)
+) {
+  throw new Error(
+    "MONGODB_URI, JWT_SECRET, FRONTEND_URL, and BACKEND_URL are required in production.",
+  );
+}
+
+if (isProduction && env.JWT_SECRET.length < 32) {
+  throw new Error("JWT_SECRET must be at least 32 characters in production.");
+}
+
+export const backendOrigin = env.BACKEND_URL.replace(/\/$/, "");
+export const frontendOrigin = env.FRONTEND_URL.replace(/\/$/, "");
+
+export const cookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: (isProduction
+    ? new URL(frontendOrigin).origin === new URL(backendOrigin).origin
+      ? "lax"
+      : "none"
+    : "lax") as "lax" | "none",
+  path: "/",
+  maxAge: 1000 * 60 * 60 * 24 * 7,
+};
+
+export const allowedImageMimeTypes = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+]);
+
+export const allowedVideoMimeTypes = new Set(["video/mp4"]);
+
+export const mediaUploadLimits = {
+  imageBytes: 15 * 1024 * 1024,
+  videoBytes: 25 * 1024 * 1024,
+};

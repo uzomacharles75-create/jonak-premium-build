@@ -11,18 +11,42 @@ import { CtaBanner } from "@/components/site/CtaBanner";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
+import { heroMedia } from "@/lib/siteContent";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Jonak Construction Limited | Trusted Construction Company in Lagos, Nigeria" },
-      { name: "description", content: "Jonak Construction Limited (RC 807655) — a trusted Lagos-based construction company delivering residential, commercial, civil engineering, renovation and property development projects across Nigeria. KM 36 Lekki-Epe Expressway, Ibeju-Lekki." },
-      { name: "keywords", content: "construction company Lagos, Jonak Construction, Lekki construction, Ibeju-Lekki contractor, residential construction Nigeria, commercial builder Lagos, civil engineering Lagos, property development Nigeria" },
-      { property: "og:title", content: "Jonak Construction Limited — Construction Company in Lagos" },
-      { property: "og:description", content: "Trusted construction and engineering solutions — residential, commercial, renovation and civil works. Lagos, Nigeria." },
+      { title: "Jonak Construction Limited | Lagos Construction, Gates & Civil Works" },
+      {
+        name: "description",
+        content:
+          "Jonak Construction Limited (RC 807655) is a Lagos and Port Harcourt construction and fabrication company delivering custom gates, security doors, staircases, canopies, civil works, renovations, and building projects across Nigeria.",
+      },
+      {
+        name: "keywords",
+        content:
+          "construction company Lagos, Port Harcourt construction company, Jonak Construction, custom gates Lagos, security doors Nigeria, spiral staircase fabricator, canopy installer, civil works Lagos, Lekki contractor, Ibeju-Lekki builder, residential construction Nigeria",
+      },
+      { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Jonak Construction Limited | Lagos Construction, Gates & Civil Works" },
+      {
+        property: "og:description",
+        content:
+          "Trusted construction and fabrication solutions for gates, doors, staircases, canopies, civil works, and residential projects in Lagos and Port Harcourt, Nigeria.",
+      },
+      { property: "og:image", content: heroMedia.url },
+      { property: "og:image:alt", content: heroMedia.alt },
+      { property: "og:site_name", content: "Jonak Construction Limited" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_NG" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Jonak Construction Limited | Lagos Construction, Gates & Civil Works" },
+      {
+        name: "twitter:description",
+        content:
+          "Custom gates, security doors, staircases, canopies, civil works, renovations, and building projects across Lagos and Port Harcourt, Nigeria.",
+      },
+      { name: "twitter:image", content: heroMedia.url },
     ],
   }),
   component: Index,

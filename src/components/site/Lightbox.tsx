@@ -8,7 +8,7 @@ export function Lightbox({
   onPrev,
   onNext,
 }: {
-  images: { url: string; title: string; cat: string }[];
+  images: { url: string; title: string; cat: string; description: string }[];
   index: number;
   onClose: () => void;
   onPrev: () => void;
@@ -54,10 +54,11 @@ export function Lightbox({
         <ChevronRight className="h-6 w-6" />
       </button>
       <figure className="relative max-h-[90vh] max-w-6xl" onClick={(e) => e.stopPropagation()}>
-        <img src={img.url} alt={img.title} className="max-h-[82vh] w-auto rounded-xl object-contain shadow-2xl" />
+        <img src={img.url} alt={img.description} className="max-h-[82vh] w-auto rounded-xl object-contain shadow-2xl" />
         <figcaption className="mt-4 text-center text-white">
           <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">{img.cat}</div>
           <div className="mt-1 font-display text-lg font-semibold">{img.title}</div>
+          <div className="mt-2 max-w-2xl text-sm text-white/70">{img.description}</div>
           <div className="mt-1 text-xs text-white/50">{index + 1} / {images.length}</div>
         </figcaption>
       </figure>

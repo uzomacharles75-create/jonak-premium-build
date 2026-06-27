@@ -1,5 +1,6 @@
 import { Building2, Home, Hammer, Wrench, ClipboardList, Landmark, Layers, Briefcase, ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { getQuoteLink } from "@/lib/siteContent";
 
 const services = [
   { Icon: Building2, t: "Building Construction", d: "Full-cycle building delivery from foundation to finishing." },
@@ -22,8 +23,8 @@ export function Services() {
             Construction services, engineered for trust.
           </h2>
           <p className="mt-5 text-muted-foreground md:text-lg">
-            From your first sketch to handover, we operate as a single, disciplined partner —
-            delivering quality construction across Lagos and beyond.
+            From your first sketch to handover, we operate as a single, disciplined partner -
+            delivering quality construction, fabrication, and site works across Lagos and beyond.
           </p>
         </Reveal>
 
@@ -38,9 +39,15 @@ export function Services() {
                   </div>
                   <h3 className="mt-6 font-display text-lg font-bold">{t}</h3>
                   <p className="mt-3 text-sm text-muted-foreground">{d}</p>
-                  <div className="mt-6 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                  <a
+                    href={getQuoteLink(t)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Request a quote for ${t} on WhatsApp`}
+                    className="mt-6 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100 hover:text-gold"
+                  >
                     Request a quote <ArrowUpRight className="h-3.5 w-3.5" />
-                  </div>
+                  </a>
                 </div>
               </div>
             </Reveal>

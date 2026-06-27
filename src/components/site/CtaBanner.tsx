@@ -1,5 +1,6 @@
 import { Phone, MessageCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { getQuoteLink } from "@/lib/siteContent";
 
 export function CtaBanner() {
   return (
@@ -15,8 +16,8 @@ export function CtaBanner() {
                   Ready to start your construction project?
                 </h2>
                 <p className="mt-5 max-w-xl text-white/70 md:text-lg">
-                  Speak with our team today for a transparent quote, professional advice,
-                  and a delivery plan tailored to your vision and budget.
+                  Speak with our team today for a transparent quote, professional advice, and a
+                  delivery plan tailored to your vision and budget.
                 </p>
               </div>
               <div className="flex flex-col gap-3 md:items-end">
@@ -27,12 +28,12 @@ export function CtaBanner() {
                   <Phone className="h-4 w-4" /> Call Now
                 </a>
                 <a
-                  href="https://wa.me/2347052193488"
+                  href={getQuoteLink("my construction project")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-semibold text-white backdrop-blur transition-colors hover:border-gold hover:text-gold"
                 >
-                  <MessageCircle className="h-4 w-4" /> WhatsApp Us
+                  <MessageCircle className="h-4 w-4" /> Request a Quote
                 </a>
               </div>
             </div>

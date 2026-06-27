@@ -41,10 +41,10 @@ export function Footer() {
           <div>
             <div className="text-xs font-semibold uppercase tracking-widest text-gold">Quick Links</div>
             <ul className="mt-5 space-y-3 text-sm text-white/70">
-              {[
+              {[ 
                 { l: "About", h: "#about" },
                 { l: "Services", h: "#services" },
-                { l: "Video", h: "#video" },
+                { l: "Showcase", h: "#video" },
                 { l: "Projects", h: "#projects" },
                 { l: "Contact", h: "#contact" },
               ].map((x) => (

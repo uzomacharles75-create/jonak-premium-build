@@ -1,12 +1,43 @@
-import { Phone, Mail, MapPin, Send, MessageCircle } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { useState } from "react";
+import { getWhatsAppLink } from "@/lib/siteContent";
 
 const phones = ["0913 706 1340", "0705 219 3488", "0817 457 8070"];
 const phoneTel = ["09137061340", "07052193488", "08174578070"];
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const resetTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+    };
+  }, []);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const message = [
+      "Hello Jonak Construction, I would like a quote from your website.",
+      "",
+      `Name: ${String(data.get("name") ?? "")}`,
+      `Company: ${String(data.get("company") ?? "")}`,
+      `Email: ${String(data.get("email") ?? "")}`,
+      `Phone: ${String(data.get("phone") ?? "")}`,
+      `Project type: ${String(data.get("type") ?? "")}`,
+      `Project details: ${String(data.get("details") ?? "")}`,
+    ].join("\n");
+
+    window.open(getWhatsAppLink(message), "_blank", "noopener,noreferrer");
+    form.reset();
+    setSent(true);
+    if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setSent(false), 2500);
+  };
+
   return (
     <section id="contact" className="relative overflow-hidden bg-surface py-24 text-white md:py-32">
       <div className="absolute inset-0 bg-radial-glow opacity-60" />
@@ -18,8 +49,8 @@ export function Contact() {
               Let's build your next project.
             </h2>
             <p className="mt-5 max-w-md text-white/70 md:text-lg">
-              Reach our team directly — by phone, WhatsApp, email, or the form. We respond to every
-              inquiry within 24 hours.
+              Reach our team directly - by phone, WhatsApp, email, or the form. We respond to every
+              inquiry within 24 hours and can continue the conversation on WhatsApp.
             </p>
 
             <div className="mt-10 space-y-5">
@@ -79,7 +110,7 @@ export function Contact() {
 
           <Reveal delay={150}>
             <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+              onSubmit={handleSubmit}
               className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur md:p-10"
             >
               <h3 className="font-display text-2xl font-bold">Request a Quote</h3>
@@ -99,6 +130,7 @@ export function Contact() {
                 <textarea
                   rows={4}
                   required
+                  name="details"
                   className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-gold"
                   placeholder="Briefly describe scope, location, and timeline…"
                 />
@@ -107,7 +139,7 @@ export function Contact() {
                 type="submit"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-7 py-4 text-sm font-semibold text-gold-foreground shadow-gold transition-transform hover:scale-[1.02] sm:w-auto"
               >
-                {sent ? "Thank you — we'll be in touch" : "Send Inquiry"} <Send className="h-4 w-4" />
+                {sent ? "WhatsApp opened" : "Request via WhatsApp"} <MessageCircle className="h-4 w-4" />
               </button>
             </form>
           </Reveal>
