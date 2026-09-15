@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { LockKeyhole, Loader2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import logo from "@/assets/jonak-logo.jpeg";
 import { Button } from "@/components/ui/button";
@@ -145,6 +145,13 @@ export function AdminLogin() {
                 )}
               </Button>
             </form>
+
+            <Link
+              to="/"
+              className="mt-5 block text-center text-sm text-white/60 transition-colors hover:text-white"
+            >
+              Return to main website
+            </Link>
           </CardContent>
         </Card>
       </div>
