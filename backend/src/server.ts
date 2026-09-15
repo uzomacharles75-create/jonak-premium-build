@@ -12,6 +12,7 @@ import { apiRoutes } from "./routes";
 import { UserModel } from "./models/User";
 
 const app = express();
+const canonicalProductionFrontendOrigin = "https://jonakconstruction.com.ng";
 
 app.disable("x-powered-by");
 app.set("trust proxy", 1);
@@ -42,7 +43,11 @@ app.use(
       ]);
 
       if (isProduction) {
-        if (origin === frontendOrigin || origin === backendOrigin) {
+        if (
+          origin === frontendOrigin ||
+          origin === backendOrigin ||
+          origin === canonicalProductionFrontendOrigin
+        ) {
           callback(null, true);
           return;
         }
@@ -54,6 +59,7 @@ app.use(
         /^https?:\/\/(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?::\d+)?$/.test(
           origin,
         );
+        
 
       if (
         devOrigins.has(origin) ||
